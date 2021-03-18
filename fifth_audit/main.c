@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include "colors.h"
 
 void displayStar(int centerX, int centerY, int color) {
     printf("\033[%d;%dH*", centerY, centerX);
@@ -16,7 +17,7 @@ int main()
     srand(time(NULL));
     int chance = 0;
     printf("\033[2J");
-    displayStar(5, 5, 0);
+    displayStar(5, 5, BLACK);
     // for (int x = 0; x < 24; x++)
     // {
     //     printf("\033[2J");
