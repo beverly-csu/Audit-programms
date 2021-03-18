@@ -1,18 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
-int main() {
+int main()
+{
     srand(time(NULL));
     int chance = 0;
-
-    for (int y = 0; y < 15; y++)
+    printf("\033[2J");
+    for (int x = 0; x < 24; x++)
     {
-        for (int x = 0; x < 10; x++)
+        
+        printf("\033[2J");
+        for (int y = 0; y < 79; y++)
         {
-            chance = rand() % 10;
-            if (chance > 4 && chance < 8)
-                printf("\033[%d#B*", x);
+            if ((rand() % 100) % 2 == 0)
+                printf("\033[%d;%dH*", x, y);
         }
+        sleep(1);
     }
 }
