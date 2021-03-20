@@ -11,14 +11,14 @@ void game_c(){
   char city[255] = { 0 };
   while (quitTrigger == 0) {
     fgets(city, 255, stdin);
-    if (str_chr(city, '\n') == 0) {
+    if (str_chr(city, '\n') == 0 && i != 0) {
       quitTrigger = 1;
       break;
     }
     else {
       i++;
       cities = (char**)realloc(cities, i * 255);
-      cities[i - 1] = (char*)malloc(255);
+      cities[i - 1] = (char*)realloc(cities[i-1], str_len(city));
       cities[i - 1] = str_cpy(str_tolower(city), cities[i - 1]);
     }
   }
@@ -28,6 +28,9 @@ void game_c(){
       if (x != y)
         if (cities[x][len-1] == cities[y][0]) {
           wecan++;
+        }
+        else {
+          wecan--;
         }
     }
   }
