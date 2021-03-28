@@ -4,6 +4,6 @@
 #include "getUsers.h"
 
 int main(){
-    // password();
-    getUserInfo();
+    password();
+    //getUserInfo();
 }
