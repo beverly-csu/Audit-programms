@@ -5,5 +5,5 @@
 
 int main(){
     // password();
-    // getUserInfo();
+    getUserInfo();
 }
