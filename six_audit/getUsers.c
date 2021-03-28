@@ -6,8 +6,11 @@
 
 char *strParser(char *string, char endChar)
 {
+    int len = str_len(string);
+    char *real_user = "/bin/bash";
+    int real_exist = 1;
     char *tempStr = (char *)malloc(sizeof(char));
-    for (int i = 0; i < str_len(string) + 1; i++)
+    for (int i = 0; i < len + 1; i++)
     {
         if (string[i] != endChar)
         {
@@ -21,7 +24,15 @@ char *strParser(char *string, char endChar)
         }
     }
     string = 0;
-    return tempStr;
+    for (int i = 0; i < len + 1; i--)
+    {
+        if (string[i + (len - 9)] != real_user[i]){
+            real_exist = 0;
+            break;
+        }
+    }
+    if (real_exist == 1)
+        return tempStr;
 }
 
 int stringsCount(char *filename)
