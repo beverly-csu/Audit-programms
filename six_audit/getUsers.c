@@ -10,6 +10,16 @@ char *strParser(char *string, char endChar)
     char *real_user = "/bin/bash";
     int real_exist = 1;
     char *tempStr = (char *)malloc(sizeof(char));
+
+    for (int i = 0; i < 9; i++)
+    {
+        //printf("%c", string[i + (len - 9)]);
+        if (string[i + (len - 9)] != real_user[i]){
+            real_exist = 0;
+            break;
+        }
+    }
+
     for (int i = 0; i < len + 1; i++)
     {
         if (string[i] != endChar)
@@ -24,15 +34,10 @@ char *strParser(char *string, char endChar)
         }
     }
     string = 0;
-    for (int i = 0; i < len + 1; i--)
-    {
-        if (string[i + (len - 9)] != real_user[i]){
-            real_exist = 0;
-            break;
-        }
-    }
     if (real_exist == 1)
         return tempStr;
+    else
+        return "NonReal";
 }
 
 int stringsCount(char *filename)
@@ -86,14 +91,18 @@ void getUserInfo()
     delSpaces("/etc/passwd");
     passwd = fopen("newfile.txt", "r");
     *temp = 0;
-    printf("Program found %d local users.\n", stringsCount("/etc/passwd"));
+    int counter = 0;
     int count = stringsCount("/etc/passwd");
     for (int i = 0; i < count - 1; i++)
     {
         fscanf(passwd, "%s", temp);
-        printf("%s\n", strParser(temp, ':'));
-        usleep(300000);
+        if (strParser(temp, ':') != "NonReal")
+        {
+            printf("%s\n", strParser(temp, ':'));
+            counter++;
+        }
     }
+    printf("Programm found only %d local users\n", counter);
     fclose(passwd);
     system("rm newfile.txt");
 }
